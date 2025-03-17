@@ -1,69 +1,89 @@
-# Welcome to your Lovable project
 
-## Project info
+# Sistema de Elección de Especialidad - CECyT 12
 
-**URL**: https://lovable.dev/projects/1c2f1f2e-f61d-4fc4-82aa-69f98488b988
+Sistema para la selección de especialidad de los alumnos de segundo semestre del CECyT 12 "José María Morelos y Pavón" del Instituto Politécnico Nacional.
 
-## How can I edit this code?
+## Descripción
 
-There are several ways of editing your application.
+Este proyecto proporciona una interfaz para que los estudiantes del CECyT 12 puedan:
 
-**Use Lovable**
+- Ver información sobre las especialidades disponibles
+- Registrarse para la selección de especialidad
+- Consultar su estatus de registro
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1c2f1f2e-f61d-4fc4-82aa-69f98488b988) and start prompting.
+También incluye un panel de administración para que el personal docente pueda gestionar los registros.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Cómo descargar y compartir este proyecto
 
-**Use your preferred IDE**
+### Requisitos previos
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- [Node.js](https://nodejs.org/) (v18 o superior)
+- [npm](https://www.npmjs.com/) (incluido con Node.js)
+- [Git](https://git-scm.com/) (opcional, para clonar el repositorio)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Descarga e instalación
 
-Follow these steps:
+**Opción 1: Descargar como ZIP**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Haz clic en el botón "Code" en la parte superior del repositorio
+2. Selecciona "Download ZIP"
+3. Extrae el archivo ZIP en tu computadora
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+**Opción 2: Clonar con Git**
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+git clone <URL-del-repositorio>
+cd <nombre-del-proyecto>
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Instalación de dependencias
+
+Una vez descargado o clonado el proyecto, abre una terminal en la carpeta del proyecto y ejecuta:
+
+```bash
+npm install
+```
+
+### Ejecutar el proyecto
+
+Para iniciar el servidor de desarrollo:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+El proyecto estará disponible en http://localhost:8080
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Compilar para producción
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Los archivos compilados estarán en la carpeta `dist` y pueden ser subidos a cualquier servicio de hosting estático.
 
-## What technologies are used for this project?
+### Compartir con tus compañeros
 
-This project is built with .
+**Como archivos:**
+1. Ejecuta `npm run build`
+2. Comprime la carpeta `dist` y envíala
 
-- Vite
-- TypeScript
+**Como repositorio:**
+1. Crea tu propio repositorio en GitHub, GitLab, etc.
+2. Sube tu código al repositorio
+3. Comparte el enlace con tus compañeros
+
+## Tecnologías utilizadas
+
 - React
-- shadcn-ui
+- TypeScript
+- Vite
 - Tailwind CSS
+- shadcn/ui
+- React Router
+- React Query
 
-## How can I deploy this project?
+## Colores del IPN
 
-Simply open [Lovable](https://lovable.dev/projects/1c2f1f2e-f61d-4fc4-82aa-69f98488b988) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- Guinda IPN: #730019
+- Negro: #000000

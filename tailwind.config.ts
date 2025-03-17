@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				guinda: {
-					DEFAULT: '#800020',
-					dark: '#600010',
-					light: '#a00030',
+					DEFAULT: '#730019', // IPN guinda color
+					dark: '#550011',
+					light: '#990021',
 				},
 			},
 			borderRadius: {

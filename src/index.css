@@ -14,24 +14,24 @@
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 345 75% 25%;
+    --primary: 353 100% 22%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 345 50% 15%;
+    --secondary: 353 100% 15%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 345 75% 25%;
+    --accent: 353 100% 22%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 345 20% 30%;
-    --input: 345 20% 20%;
-    --ring: 345 75% 25%;
+    --border: 353 80% 30%;
+    --input: 353 80% 20%;
+    --ring: 353 100% 22%;
 
     --radius: 0.5rem;
   }
@@ -53,6 +53,6 @@
   }
   
   .bg-guinda-gradient {
-    background: linear-gradient(145deg, #800020, #4a0010);
+    background: linear-gradient(145deg, #730019, #4a0010);
   }
 }
