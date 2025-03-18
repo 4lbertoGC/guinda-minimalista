@@ -17,6 +17,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useState } from "react";
+import { submitRegistro } from "@/services/api";
 
 const formSchema = z.object({
   nombre: z.string().min(3, {
@@ -41,6 +43,7 @@ const formSchema = z.object({
 
 const Registro = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,12 +57,35 @@ const Registro = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Registro exitoso",
-      description: `Has seleccionado la especialidad de ${getEspecialidadNombre(values.especialidad)}`,
-    });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    
+    try {
+      const result = await submitRegistro(values);
+      
+      if (result.success) {
+        toast({
+          title: "Registro exitoso",
+          description: `Tu registro para ${getEspecialidadNombre(values.especialidad)} ha sido enviado correctamente.`,
+        });
+        form.reset();
+      } else {
+        toast({
+          title: "Error en el registro",
+          description: result.message || "Hubo un problema al procesar tu registro. Intenta nuevamente.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error en el registro",
+        description: "Hubo un problema al procesar tu registro. Intenta nuevamente.",
+        variant: "destructive",
+      });
+      console.error("Error al registrar:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const getEspecialidadNombre = (id: string) => {
@@ -219,8 +245,12 @@ const Registro = () => {
                     )}
                   />
                   
-                  <Button type="submit" className="w-full bg-guinda hover:bg-guinda-dark text-white">
-                    Registrar Elección
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-guinda hover:bg-guinda-dark text-white"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Enviando..." : "Registrar Elección"}
                   </Button>
                 </form>
               </Form>

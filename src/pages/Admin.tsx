@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,54 +14,46 @@ import { Input } from "@/components/ui/input";
 import { Search, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getRegistros } from "@/services/api";
+import { useToast } from "@/components/ui/use-toast";
 
-// Datos de ejemplo para el panel de administración
-const registrosIniciales = [
-  {
-    id: 1,
-    boleta: "2023100001",
-    nombre: "Ana García Pérez",
-    especialidad: "Técnico en Informática",
-    promedio: "9.5",
-    fecha: "2023-10-15",
-  },
-  {
-    id: 2,
-    boleta: "2023100002",
-    nombre: "Luis Rodríguez López",
-    especialidad: "Técnico en Administración",
-    promedio: "8.7",
-    fecha: "2023-10-15",
-  },
-  {
-    id: 3,
-    boleta: "2023100003",
-    nombre: "María Sánchez Torres",
-    especialidad: "Técnico en Contaduría",
-    promedio: "9.2",
-    fecha: "2023-10-16",
-  },
-  {
-    id: 4,
-    boleta: "2023100004",
-    nombre: "Carlos Méndez Ortiz",
-    especialidad: "Técnico en Mercadotecnia Digital",
-    promedio: "8.9",
-    fecha: "2023-10-16",
-  },
-  {
-    id: 5,
-    boleta: "2023100005",
-    nombre: "Laura Vázquez Ramírez",
-    especialidad: "Técnico en Informática",
-    promedio: "9.1",
-    fecha: "2023-10-17",
-  },
-];
+// Tipo para los registros
+interface Registro {
+  id: number;
+  boleta: string;
+  nombre: string;
+  especialidad: string;
+  promedio: string;
+  fecha: string;
+}
 
 const Admin = () => {
-  const [registros, setRegistros] = useState(registrosIniciales);
+  const [registros, setRegistros] = useState<Registro[]>([]);
   const [filtro, setFiltro] = useState("");
+  const [cargando, setCargando] = useState(true);
+  const { toast } = useToast();
+
+  // Cargar registros desde el backend PHP
+  useEffect(() => {
+    const fetchRegistros = async () => {
+      try {
+        setCargando(true);
+        const data = await getRegistros();
+        setRegistros(data);
+      } catch (error) {
+        console.error("Error al cargar registros:", error);
+        toast({
+          title: "Error",
+          description: "No se pudieron cargar los registros. Intenta nuevamente.",
+          variant: "destructive",
+        });
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    fetchRegistros();
+  }, [toast]);
 
   const handleBuscar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiltro(e.target.value);
@@ -74,11 +66,46 @@ const Admin = () => {
       registro.especialidad.toLowerCase().includes(filtro.toLowerCase())
   );
 
+  // Generar estadísticas
   const estadisticasPorEspecialidad = {
     "Técnico en Informática": registros.filter(r => r.especialidad === "Técnico en Informática").length,
     "Técnico en Administración": registros.filter(r => r.especialidad === "Técnico en Administración").length,
     "Técnico en Contaduría": registros.filter(r => r.especialidad === "Técnico en Contaduría").length,
     "Técnico en Mercadotecnia Digital": registros.filter(r => r.especialidad === "Técnico en Mercadotecnia Digital").length,
+  };
+
+  // Exportar datos a CSV
+  const exportarCSV = () => {
+    if (registros.length === 0) {
+      toast({
+        title: "No hay datos para exportar",
+        description: "No hay registros disponibles para exportar.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Cabeceras CSV
+    const headers = ["Boleta", "Nombre completo", "Especialidad", "Promedio", "Fecha de registro"];
+    
+    // Datos en formato CSV
+    const csvContent = [
+      headers.join(","),
+      ...registros.map(r => 
+        [r.boleta, r.nombre, r.especialidad, r.promedio, r.fecha].join(",")
+      )
+    ].join("\n");
+    
+    // Crear y descargar archivo
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `registros_${new Date().toISOString().split("T")[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -120,7 +147,10 @@ const Admin = () => {
                   className="pl-10 bg-muted"
                 />
               </div>
-              <Button className="bg-guinda hover:bg-guinda-dark w-full sm:w-auto text-white">
+              <Button 
+                className="bg-guinda hover:bg-guinda-dark w-full sm:w-auto text-white"
+                onClick={exportarCSV}
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Exportar datos
               </Button>
@@ -138,21 +168,28 @@ const Admin = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {registrosFiltrados.map((registro) => (
-                    <TableRow key={registro.id} className="hover:bg-muted/50">
-                      <TableCell className="font-medium">{registro.boleta}</TableCell>
-                      <TableCell>{registro.nombre}</TableCell>
-                      <TableCell>{registro.especialidad}</TableCell>
-                      <TableCell className="text-center">{registro.promedio}</TableCell>
-                      <TableCell className="text-center">{registro.fecha}</TableCell>
+                  {cargando ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="h-24 text-center">
+                        Cargando registros...
+                      </TableCell>
                     </TableRow>
-                  ))}
-                  {registrosFiltrados.length === 0 && (
+                  ) : registrosFiltrados.length === 0 ? (
                     <TableRow>
                       <TableCell colSpan={5} className="h-24 text-center">
                         No se encontraron registros.
                       </TableCell>
                     </TableRow>
+                  ) : (
+                    registrosFiltrados.map((registro) => (
+                      <TableRow key={registro.id} className="hover:bg-muted/50">
+                        <TableCell className="font-medium">{registro.boleta}</TableCell>
+                        <TableCell>{registro.nombre}</TableCell>
+                        <TableCell>{registro.especialidad}</TableCell>
+                        <TableCell className="text-center">{registro.promedio}</TableCell>
+                        <TableCell className="text-center">{registro.fecha}</TableCell>
+                      </TableRow>
+                    ))
                   )}
                 </TableBody>
               </Table>
