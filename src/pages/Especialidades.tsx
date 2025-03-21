@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronDown } from "lucide-react";
@@ -16,13 +17,51 @@ const Especialidades = () => {
     {
       id: "informatica",
       nombre: "Técnico en Informática",
-      descripcion: "Formación en desarrollo de software, redes y sistemas computacionales.",
-      perfil: [
-        "Interés por la tecnología y la computación",
-        "Capacidad de análisis y resolución de problemas",
-        "Habilidades lógico-matemáticas",
-        "Creatividad e innovación",
-      ],
+      descripcion: "Formar Técnicos en Informática altamente competitivos que colaboren con la investigación científica, tecnológica, que promueva la innovación, el desarrollo económico, político, social y cultural del país; mediante unidades de aprendizaje vigentes y pertinentes que les permita desarrollar habilidades, aptitudes y actitudes que demanda el talento 4.0 para su incorporación al campo laboral y profesional.",
+      perfilIngreso: {
+        conocimientos: [
+          "Conocimientos básicos del nivel previo.",
+          "Conocimientos básicos de computación.",
+          "Conocimiento básico de una segunda lengua.",
+          "Contar con actitudes y valores para el proceso de formación."
+        ],
+        habilidades: [
+          "Manejo de la expresión oral y escrita.",
+          "Uso efectivo de los recursos digitales.",
+          "Pensamiento creativo.",
+          "Pensamiento crítico.",
+          "Estrategias de autogestión del aprendizaje."
+        ],
+        actitudes: [
+          "Seguridad para expresar sus ideas",
+          "Disposición para el trabajo en equipo y colaborativo",
+          "Liderazgo",
+          "Responsabilidad."
+        ]
+      },
+      perfilEgreso: {
+        competenciasGenericas: [
+          "Maneja las tecnologías de la información y comunicación.",
+          "Toma decisiones con responsabilidad.",
+          "Mantiene una actitud crítica, constructiva y altruista en su vida cotidiana.",
+          "Muestra interés sobre temas de actualidad de manera ética y reflexiva.",
+          "Demuestra inclusión y respeto a las diferentes ideologías.",
+          "Mantiene una actitud emprendedora conforme a las necesidades de su entorno.",
+          "Promueve el desarrollo económico, social y cultural de su país.",
+          "Diseña estrategias que reduzcan el impacto social y ambiental.",
+          "Participa y colabora de manera efectiva en equipos diversos."
+        ],
+        competenciasDisciplinares: [
+          "Aplica las habilidades, conocimientos y actitudes de interrelación con las unidades de formación institucional, científica, humanística y tecnológica básica que fortalecen su trayectoria académica."
+        ],
+        competenciasProfesionales: [
+          "Aplica los principios y procesos informáticos.",
+          "Desarrolla aplicaciones web y móviles.",
+          "Administra sistemas y redes de computadoras.",
+          "Implementa sistemas de bases de datos.",
+          "Maneja técnicas y herramientas para el desarrollo de software."
+        ]
+      },
       carrerasSuperior: [
         "Ingeniería en Sistemas Computacionales",
         "Ingeniería en Informática",
@@ -65,13 +104,59 @@ const Especialidades = () => {
     {
       id: "administracion",
       nombre: "Técnico en Administración",
-      descripcion: "Formación en gestión de recursos humanos, materiales y financieros.",
-      perfil: [
-        "Habilidades de organización y planeación",
-        "Capacidad de liderazgo",
-        "Facilidad para trabajo en equipo",
-        "Aptitudes para la comunicación",
-      ],
+      descripcion: "Formar Técnicos en Administración altamente competitivos que colaboren con la investigación científica, tecnológica, que promueva la innovación, el desarrollo económico, político, social y cultural del país; mediante unidades de aprendizaje vigentes y pertinentes que les permita desarrollar habilidades, aptitudes y actitudes que demanda el talento 4.0 para su incorporación al campo laboral y profesional.",
+      perfilIngreso: {
+        conocimientos: [
+          "Conocimientos básicos del nivel previo.",
+          "Conocimientos básicos de computación.",
+          "Conocimiento básico de una segunda lengua.",
+          "Contar con actitudes y valores para el proceso de formación."
+        ],
+        habilidades: [
+          "Manejo de la expresión oral y escrita.",
+          "Uso efectivo de los recursos digitales.",
+          "Pensamiento creativo.",
+          "Pensamiento crítico.",
+          "Estrategias de autogestión del aprendizaje."
+        ],
+        actitudes: [
+          "Seguridad para expresar sus ideas",
+          "Disposición para el trabajo en equipo y colaborativo",
+          "Liderazgo",
+          "Responsabilidad."
+        ]
+      },
+      perfilEgreso: {
+        competenciasGenericas: [
+          "Maneja las tecnologías de la información y comunicación.",
+          "Toma decisiones con responsabilidad.",
+          "Mantiene una actitud crítica, constructiva y altruista en su vida cotidiana.",
+          "Muestra interés sobre temas de actualidad de manera ética y reflexiva.",
+          "Demuestra inclusión y respeto a las diferentes ideologías.",
+          "Mantiene una actitud emprendedora conforme a las necesidades de su entorno.",
+          "Promueve el desarrollo económico, social y cultural de su país.",
+          "Diseña estrategias que reduzcan el impacto social y ambiental.",
+          "Participa y colabora de manera efectiva en equipos diversos."
+        ],
+        competenciasDisciplinares: [
+          "Aplica las habilidades, conocimientos y actitudes de interrelación con las unidades de formación institucional, científica, humanística y tecnológica básica que fortalecen su trayectoria académica."
+        ],
+        competenciasProfesionales: [
+          "Aplica los principios y procesos administrativos.",
+          "Identifica la normatividad vigente de las relaciones laborales en México.",
+          "Aplica el análisis y valuación de puestos.",
+          "Integra la estructura de la nómina.",
+          "Aplica métodos y estrategias para el diseño de organizaciones públicas y privadas.",
+          "Emplea técnicas y estrategias de investigación de mercado.",
+          "Opera sistemas de información contable y administrativa.",
+          "Desarrolla proyectos de inversión.",
+          "Maneja técnicas y herramientas para la administración de la producción con la normatividad vigente.",
+          "Emplea técnicas de calidad en los diferentes procesos.",
+          "Aplica herramientas para la administración financiera en una organización con base a las Normas de Información Financiera (NIF).",
+          "Elabora documentación contable, administrativa y mercantil conforme a la normatividad vigente.",
+          "Diseña estrategias para el uso racional de los recursos sustentables."
+        ]
+      },
       carrerasSuperior: [
         "Licenciatura en Administración",
         "Licenciatura en Administración de Empresas",
@@ -102,13 +187,47 @@ const Especialidades = () => {
     {
       id: "contaduria",
       nombre: "Técnico en Contaduría",
-      descripcion: "Formación en control financiero, contabilidad y auditoría.",
-      perfil: [
-        "Aptitud para los números y cálculos",
-        "Meticulosidad y atención al detalle",
-        "Interés por temas económicos y financieros",
-        "Capacidad para el análisis de información",
-      ],
+      descripcion: "Ser la mejor carrera de Técnico en Contaduría a nivel Medio Superior, sustentada en la filosofía del Instituto Politécnico Nacional que está reconocida por el alto nivel de sus alumnos, así como por el buen desempeño laboral de sus egresados en el área contable y administrativa. En general, debido a sus conocimientos, habilidades, actitudes y valores de calidad y acorde con los avances tecnológicos y los cambios sociales, económicos y laborales que demanda la sociedad.",
+      perfilIngreso: {
+        conocimientos: [
+          "Conocimientos básicos en matemáticas.",
+          "Manejo de instrumentos de cálculo.",
+          "Noción en materia de computación."
+        ],
+        habilidades: [
+          "Capacidad de análisis.",
+          "Razonamiento formal que le facilite la resolución de problemas lógicos y cotidianos.",
+          "Disposición para el trabajo en equipo."
+        ],
+        actitudes: [
+          "Interés por la contabilidad y los sistemas contables de la información.",
+          "Honestidad",
+          "Responsabilidad"
+        ]
+      },
+      perfilEgreso: {
+        competenciasGenericas: [
+          "Se conoce y valora a sí mismo y aborda problemas y retos teniendo en cuenta los objetivos que persigue.",
+          "Desarrolla innovaciones y propone soluciones a problemas a partir de métodos establecidos.",
+          "Aprende por iniciativa e interés propio a lo largo de la vida.",
+          "Participa y colabora de manera efectiva en equipos diversos."
+        ],
+        competenciasDisciplinares: [
+          "Construye e interpreta modelos matemáticos mediante la aplicación de procedimientos aritméticos, algebraicos, geométricos y variacionales para la comprensión y análisis de situaciones reales, hipotéticas o formales.",
+          "Formula y resuelve problemas matemáticos aplicando diferentes enfoques.",
+          "Explica e interpreta los resultados obtenidos mediante procedimientos matemáticos y los contrasta con modelos establecidos o situaciones reales.",
+          "Analiza las relaciones entre dos o más variables de un proceso social o natural para determinar o estimar su comportamiento.",
+          "Cuantifica, representa y contrasta experimental o matemáticamente las magnitudes del espacio y las propiedades físicas de los objetos que lo rodean."
+        ],
+        competenciasProfesionales: [
+          "Calcula el pago de impuestos de personas físicas y morales con base en la normatividad fiscal vigente.",
+          "Determina el monto de las aportaciones obrero-patronales mediante la aplicación de las normas de seguridad social para los trabajadores.",
+          "Elabora una nómina con base a las normatividades laborales de seguridad social y fiscal vigentes.",
+          "Aplica el marco normativo que rige la profesión contable y el desarrollo de sistemas de información de una organización.",
+          "Maneja los diferentes documentos administrativos contables y legales que se derivan y/o respaldan las operaciones económico-administrativas de una organización.",
+          "Revisa los estados financieros con base a las Normas de Información Financiera para sustentar auditoría."
+        ]
+      },
       carrerasSuperior: [
         "Licenciatura en Contaduría Pública",
         "Licenciatura en Finanzas",
@@ -139,13 +258,63 @@ const Especialidades = () => {
     {
       id: "mercadotecnia",
       nombre: "Técnico en Mercadotecnia Digital",
-      descripcion: "Formación en estrategias de marketing en entornos digitales.",
-      perfil: [
-        "Creatividad y pensamiento innovador",
-        "Interés por tendencias digitales",
-        "Habilidades de comunicación y persuasión",
-        "Capacidad para análisis de mercado",
-      ],
+      descripcion: "Técnico en Mercadotecnia Digital desarrollará en los estudiantes habilidades específicas, las cuales le permitirán crear e implementar estrategias mercadológicas, así como generar discursos con contenido de valor creativo. El desarrollo del internet ha revolucionado el mercado. El ecosistema digital contemporáneo ofrece diversas ventajas, entre las que se encuentran diferentes herramientas que darán seguimiento a las variables que buscan solventar las necesidades actuales de las organizaciones.",
+      perfilIngreso: {
+        conocimientos: [
+          "Conocimientos sólidos en el área de ciencias básicas.",
+          "Conocimientos para aplicar metodologías de investigación.",
+          "Conocimientos del idioma inglés.",
+          "Conocer el manejo de Tecnologías de información y comunicación.",
+          "Conocimientos de comunicación oral y escrita."
+        ],
+        habilidades: [
+          "Habilidades matemáticas.",
+          "Habilidades comunicativas.",
+          "Manejar paquetería de office.",
+          "Trabajar en equipo."
+        ],
+        actitudes: [
+          "Respetuoso.",
+          "Empático.",
+          "Muestra iniciativa."
+        ]
+      },
+      perfilEgreso: {
+        saber: [
+          "Identifica hábitos de consumo de los clientes, al analizar la información obtenida en la investigación de mercados para la toma de decisiones.",
+          "Participa en el diseño y desarrollo de productos y servicios de acuerdo a las necesidades de los consumidores.",
+          "Colabora en el diseño de campañas de mercadotecnia digital.",
+          "Diseña tácticas para ejecutar los planes de mercadotecnia.",
+          "Formula reportes y métricas sobre las campañas en plataformas digitales.",
+          "Crea y administra contenidos en redes sociales.",
+          "Aplica las herramientas que le permiten analizar y medir el impacto de las estrategias aplicadas.",
+          "Colabora con la propuesta y diseño del plan estratégico de mercadotecnia."
+        ],
+        hacer: [
+          "Maneja bases de datos.",
+          "Maneja campañas publicitarias en medios digitales.",
+          "Auxilia en estudios de mercado.",
+          "Planea, diseña y desarrolla productos, así como servicios de acuerdo a las necesidades de los consumidores.",
+          "Aplica las tácticas y las estrategias de mercadotecnia digital diseñadas por la empresa.",
+          "Difunde bienes y servicios acuerdo a las necesidades del consumidor y la empresa, apoyándose en los medios digitales.",
+          "Manejo de herramientas digitales.",
+          "Trabaja bajo presión.",
+          "Resuelve problemas con excelente actitud de servicio."
+        ],
+        ser: [
+          "Ser creativos.",
+          "Entusiastas.",
+          "Emprendedores.",
+          "Colaborativos.",
+          "Valores éticos y cívicos.",
+          "Respetuoso y tolerante.",
+          "Actitud de servicio.",
+          "Disposición al trabajo.",
+          "Liderazgo.",
+          "Mentalidad analítica y de investigación.",
+          "Alto sentido de urgencia, orden, responsabilidad."
+        ]
+      },
       carrerasSuperior: [
         "Licenciatura en Mercadotecnia",
         "Licenciatura en Publicidad",
@@ -207,21 +376,147 @@ const Especialidades = () => {
             
             {especialidades.map((especialidad) => (
               <TabsContent key={especialidad.id} value={especialidad.id} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card className="bg-card border-guinda/50">
+                  <CardHeader>
+                    <CardTitle className="text-guinda">{especialidad.nombre}</CardTitle>
+                    <CardDescription>Descripción general</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-300">{especialidad.descripcion}</p>
+                  </CardContent>
+                </Card>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Card className="bg-card border-guinda/50">
                     <CardHeader>
                       <CardTitle className="text-guinda">Perfil de Ingreso</CardTitle>
-                      <CardDescription>Capacidades y habilidades requeridas</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <ul className="list-disc pl-5 space-y-2">
-                        {especialidad.perfil.map((item, index) => (
-                          <li key={index} className="text-gray-300">{item}</li>
-                        ))}
-                      </ul>
+                    <CardContent className="space-y-4">
+                      {especialidad.perfilIngreso.conocimientos && (
+                        <div>
+                          <h4 className="font-medium text-guinda-light mb-2">Conocimientos</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            {especialidad.perfilIngreso.conocimientos.map((item, index) => (
+                              <li key={index} className="text-gray-300">{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      {especialidad.perfilIngreso.habilidades && (
+                        <div>
+                          <h4 className="font-medium text-guinda-light mb-2">Habilidades</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            {especialidad.perfilIngreso.habilidades.map((item, index) => (
+                              <li key={index} className="text-gray-300">{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      
+                      {especialidad.perfilIngreso.actitudes && (
+                        <div>
+                          <h4 className="font-medium text-guinda-light mb-2">Actitudes</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            {especialidad.perfilIngreso.actitudes.map((item, index) => (
+                              <li key={index} className="text-gray-300">{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                   
+                  <Card className="bg-card border-guinda/50">
+                    <CardHeader>
+                      <CardTitle className="text-guinda">Perfil de Egreso</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <Accordion type="single" collapsible className="w-full">
+                        {especialidad.perfilEgreso.competenciasGenericas && (
+                          <AccordionItem value="genericas">
+                            <AccordionTrigger className="text-guinda-light">Competencias Genéricas</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.competenciasGenericas.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                        
+                        {especialidad.perfilEgreso.competenciasDisciplinares && (
+                          <AccordionItem value="disciplinares">
+                            <AccordionTrigger className="text-guinda-light">Competencias Disciplinares</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.competenciasDisciplinares.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                        
+                        {especialidad.perfilEgreso.competenciasProfesionales && (
+                          <AccordionItem value="profesionales">
+                            <AccordionTrigger className="text-guinda-light">Competencias Profesionales</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.competenciasProfesionales.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                        
+                        {/* Para mercadotecnia que tiene estructura diferente */}
+                        {especialidad.perfilEgreso.saber && (
+                          <AccordionItem value="saber">
+                            <AccordionTrigger className="text-guinda-light">Saber Conocer</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.saber.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                        
+                        {especialidad.perfilEgreso.hacer && (
+                          <AccordionItem value="hacer">
+                            <AccordionTrigger className="text-guinda-light">Saber Hacer</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.hacer.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                        
+                        {especialidad.perfilEgreso.ser && (
+                          <AccordionItem value="ser">
+                            <AccordionTrigger className="text-guinda-light">Saber Ser y Convivir</AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="list-disc pl-5 space-y-1">
+                                {especialidad.perfilEgreso.ser.map((item, index) => (
+                                  <li key={index} className="text-gray-300">{item}</li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        )}
+                      </Accordion>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Card className="bg-card border-guinda/50">
                     <CardHeader>
                       <CardTitle className="text-guinda">Carreras de Nivel Superior</CardTitle>
@@ -294,7 +589,7 @@ const Especialidades = () => {
                 <div className="flex justify-center mt-8">
                   <Button 
                     className="bg-guinda hover:bg-guinda-dark text-white"
-                    onClick={() => navigate("/registro")}
+                    onClick={() => navigate("/registro", { state: { especialidad: especialidad.id } })}
                   >
                     Elegir esta especialidad
                   </Button>
