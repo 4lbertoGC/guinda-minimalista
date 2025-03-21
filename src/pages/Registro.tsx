@@ -24,8 +24,11 @@ const formSchema = z.object({
   nombre: z.string().min(3, {
     message: "El nombre debe tener al menos 3 caracteres.",
   }),
-  apellidos: z.string().min(3, {
-    message: "Los apellidos deben tener al menos 3 caracteres.",
+  apellidoPaterno: z.string().min(2, {
+    message: "El apellido paterno debe tener al menos 2 caracteres.",
+  }),
+  apellidoMaterno: z.string().min(2, {
+    message: "El apellido materno debe tener al menos 2 caracteres.",
   }),
   boleta: z.string().regex(/^\d{10}$/, {
     message: "El número de boleta debe tener 10 dígitos.",
@@ -49,7 +52,8 @@ const Registro = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       nombre: "",
-      apellidos: "",
+      apellidoPaterno: "",
+      apellidoMaterno: "",
       boleta: "",
       email: "",
       promedio: "",
@@ -122,15 +126,29 @@ const Registro = () => {
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="nombre"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nombre(s)</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Ingresa tu(s) nombre(s)" {...field} className="bg-muted" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <FormField
                       control={form.control}
-                      name="nombre"
+                      name="apellidoPaterno"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Nombre</FormLabel>
+                          <FormLabel>Apellido Paterno</FormLabel>
                           <FormControl>
-                            <Input placeholder="Ingresa tu nombre" {...field} className="bg-muted" />
+                            <Input placeholder="Apellido paterno" {...field} className="bg-muted" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -138,12 +156,12 @@ const Registro = () => {
                     />
                     <FormField
                       control={form.control}
-                      name="apellidos"
+                      name="apellidoMaterno"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Apellidos</FormLabel>
+                          <FormLabel>Apellido Materno</FormLabel>
                           <FormControl>
-                            <Input placeholder="Ingresa tus apellidos" {...field} className="bg-muted" />
+                            <Input placeholder="Apellido materno" {...field} className="bg-muted" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

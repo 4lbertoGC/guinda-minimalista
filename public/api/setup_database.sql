@@ -9,7 +9,8 @@ USE cecyt12;
 CREATE TABLE IF NOT EXISTS registros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    apellidos VARCHAR(100) NOT NULL,
+    apellido_paterno VARCHAR(100) NOT NULL,
+    apellido_materno VARCHAR(100) NOT NULL,
     boleta VARCHAR(10) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL,
     promedio VARCHAR(4) NOT NULL,

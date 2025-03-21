@@ -32,7 +32,10 @@ try {
     // Preparar y ejecutar la consulta SQL para obtener todos los registros
     $stmt = $conn->prepare("SELECT id, 
                                    boleta, 
-                                   CONCAT(nombre, ' ', apellidos) as nombre, 
+                                   nombre,
+                                   apellido_paterno,
+                                   apellido_materno,
+                                   CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
                                    CASE 
                                      WHEN especialidad = 'informatica' THEN 'Técnico en Informática'
                                      WHEN especialidad = 'administracion' THEN 'Técnico en Administración'

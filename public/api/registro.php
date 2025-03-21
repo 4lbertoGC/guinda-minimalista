@@ -25,7 +25,8 @@ $data = json_decode($json, true);
 // Verificar que se hayan enviado todos los datos necesarios
 if (!$data || 
     !isset($data['nombre']) || 
-    !isset($data['apellidos']) || 
+    !isset($data['apellidoPaterno']) ||
+    !isset($data['apellidoMaterno']) || 
     !isset($data['boleta']) || 
     !isset($data['email']) || 
     !isset($data['promedio']) || 
@@ -48,13 +49,14 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Preparar y ejecutar la consulta SQL para insertar el registro
-    $stmt = $conn->prepare("INSERT INTO registros (nombre, apellidos, boleta, email, promedio, especialidad) 
-                           VALUES (:nombre, :apellidos, :boleta, :email, :promedio, :especialidad)");
+    $stmt = $conn->prepare("INSERT INTO registros (nombre, apellido_paterno, apellido_materno, boleta, email, promedio, especialidad) 
+                           VALUES (:nombre, :apellido_paterno, :apellido_materno, :boleta, :email, :promedio, :especialidad)");
     
     // Ejecutar la consulta con los valores recibidos
     $resultado = $stmt->execute([
         ':nombre' => $data['nombre'],
-        ':apellidos' => $data['apellidos'],
+        ':apellido_paterno' => $data['apellidoPaterno'],
+        ':apellido_materno' => $data['apellidoMaterno'],
         ':boleta' => $data['boleta'],
         ':email' => $data['email'],
         ':promedio' => $data['promedio'],

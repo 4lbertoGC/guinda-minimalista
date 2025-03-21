@@ -5,7 +5,8 @@
 
 export interface RegistroData {
   nombre: string;
-  apellidos: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
   boleta: string;
   email: string;
   promedio: string;
