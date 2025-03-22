@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -44,11 +43,13 @@ const formSchema = z.object({
   }),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const Registro = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       nombre: "",
@@ -61,11 +62,21 @@ const Registro = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: FormValues) {
     setIsSubmitting(true);
     
     try {
-      const result = await submitRegistro(values);
+      const registroData: RegistroData = {
+        nombre: values.nombre,
+        apellidoPaterno: values.apellidoPaterno,
+        apellidoMaterno: values.apellidoMaterno,
+        boleta: values.boleta,
+        email: values.email,
+        promedio: values.promedio,
+        especialidad: values.especialidad
+      };
+      
+      const result = await submitRegistro(registroData);
       
       if (result.success) {
         toast({
