@@ -9,7 +9,57 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      registro: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
+      }
+      registros: {
+        Row: {
+          apellido_materno: string
+          apellido_paterno: string
+          boleta: string
+          created_at: string
+          email: string
+          especialidad: string
+          id: string
+          nombre: string
+          promedio: string
+        }
+        Insert: {
+          apellido_materno: string
+          apellido_paterno: string
+          boleta: string
+          created_at?: string
+          email: string
+          especialidad: string
+          id?: string
+          nombre: string
+          promedio: string
+        }
+        Update: {
+          apellido_materno?: string
+          apellido_paterno?: string
+          boleta?: string
+          created_at?: string
+          email?: string
+          especialidad?: string
+          id?: string
+          nombre?: string
+          promedio?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

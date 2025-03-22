@@ -18,10 +18,10 @@ export interface RegistroData {
  */
 export const submitRegistro = async (data: RegistroData): Promise<{ success: boolean; message: string }> => {
   try {
-    // Intenta usar Supabase primero
+    // Import supabase client
     const { supabase } = await import('@/integrations/supabase/client');
     
-    // Insertar datos en Supabase
+    // Insert data into Supabase
     const { error } = await supabase
       .from('registros')
       .insert([{
@@ -36,7 +36,7 @@ export const submitRegistro = async (data: RegistroData): Promise<{ success: boo
     
     if (error) {
       console.error('Error Supabase:', error);
-      // Si falla Supabase, intentar con la API PHP de respaldo
+      // If Supabase fails, try with the PHP API as fallback
       return await submitViaPhp(data);
     }
     
@@ -46,12 +46,12 @@ export const submitRegistro = async (data: RegistroData): Promise<{ success: boo
     };
   } catch (error) {
     console.error('Error en submitRegistro:', error);
-    // Si hay un error con Supabase, intentar con la API PHP de respaldo
+    // If there's an error with Supabase, try with the PHP API as fallback
     return await submitViaPhp(data);
   }
 };
 
-// Función auxiliar para enviar datos a través de la API PHP
+// Auxiliary function to send data through the PHP API
 const submitViaPhp = async (data: RegistroData): Promise<{ success: boolean; message: string }> => {
   try {
     const response = await fetch('/api/registro.php', {
@@ -82,7 +82,7 @@ const submitViaPhp = async (data: RegistroData): Promise<{ success: boolean; mes
  */
 export const getRegistros = async (): Promise<any[]> => {
   try {
-    // Intenta usar Supabase primero
+    // Import supabase client
     const { supabase } = await import('@/integrations/supabase/client');
     
     const { data, error } = await supabase
@@ -102,11 +102,11 @@ export const getRegistros = async (): Promise<any[]> => {
     
     if (error) {
       console.error('Error Supabase:', error);
-      // Si falla Supabase, intentar con la API PHP de respaldo
+      // If Supabase fails, try with the PHP API as fallback
       return await getRegistrosViaPhp();
     }
     
-    // Transformar datos para mantener compatibilidad con el formato existente
+    // Transform data to maintain compatibility with the existing format
     return data.map(registro => ({
       id: registro.id,
       boleta: registro.boleta,
@@ -120,12 +120,12 @@ export const getRegistros = async (): Promise<any[]> => {
     }));
   } catch (error) {
     console.error('Error en getRegistros:', error);
-    // Si hay un error con Supabase, intentar con la API PHP de respaldo
+    // If there's an error with Supabase, try with the PHP API as fallback
     return await getRegistrosViaPhp();
   }
 };
 
-// Función auxiliar para obtener registros a través de la API PHP
+// Auxiliary function to get registrations through the PHP API
 const getRegistrosViaPhp = async (): Promise<any[]> => {
   try {
     const response = await fetch('/api/registros.php');
@@ -141,7 +141,7 @@ const getRegistrosViaPhp = async (): Promise<any[]> => {
   }
 };
 
-// Función auxiliar para obtener el nombre completo de la especialidad
+// Helper function to get the full name of the specialty
 const getEspecialidadNombre = (id: string): string => {
   const especialidades: Record<string, string> = {
     'informatica': 'Técnico en Informática',
