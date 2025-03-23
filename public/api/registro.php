@@ -48,6 +48,17 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
+    // Verificar si el número de boleta ya existe
+    $check = $conn->prepare("SELECT boleta FROM registros WHERE boleta = :boleta");
+    $check->execute([':boleta' => $data['boleta']]);
+    if ($check->rowCount() > 0) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'El número de boleta ya está registrado'
+        ]);
+        exit;
+    }
+    
     // Preparar y ejecutar la consulta SQL para insertar el registro
     $stmt = $conn->prepare("INSERT INTO registros (nombre, apellido_paterno, apellido_materno, boleta, email, promedio, especialidad) 
                            VALUES (:nombre, :apellido_paterno, :apellido_materno, :boleta, :email, :promedio, :especialidad)");

@@ -17,7 +17,9 @@ import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
-import { submitRegistro } from "@/services/api";
+import { submitRegistro, type RegistroData } from "@/services/api";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   nombre: z.string().min(3, {
@@ -48,6 +50,7 @@ type FormValues = z.infer<typeof formSchema>;
 const Registro = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -64,6 +67,7 @@ const Registro = () => {
 
   async function onSubmit(values: FormValues) {
     setIsSubmitting(true);
+    setSubmitError(null);
     
     try {
       const registroData: RegistroData = {
@@ -85,6 +89,7 @@ const Registro = () => {
         });
         form.reset();
       } else {
+        setSubmitError(result.message || "Hubo un problema al procesar tu registro. Intenta nuevamente.");
         toast({
           title: "Error en el registro",
           description: result.message || "Hubo un problema al procesar tu registro. Intenta nuevamente.",
@@ -92,9 +97,11 @@ const Registro = () => {
         });
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Hubo un problema al procesar tu registro. Intenta nuevamente.";
+      setSubmitError(errorMessage);
       toast({
         title: "Error en el registro",
-        description: "Hubo un problema al procesar tu registro. Intenta nuevamente.",
+        description: errorMessage,
         variant: "destructive",
       });
       console.error("Error al registrar:", error);
@@ -126,6 +133,14 @@ const Registro = () => {
               Completa el formulario para registrar tu elección de carrera técnica.
             </p>
           </div>
+
+          {submitError && (
+            <Alert variant="destructive" className="mb-6 mx-auto max-w-2xl">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error en el registro</AlertTitle>
+              <AlertDescription>{submitError}</AlertDescription>
+            </Alert>
+          )}
 
           <Card className="mx-auto max-w-2xl bg-card border-guinda/50">
             <CardHeader>

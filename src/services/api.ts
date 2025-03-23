@@ -21,6 +21,20 @@ export const submitRegistro = async (data: RegistroData): Promise<{ success: boo
     // Import supabase client
     const { supabase } = await import('@/integrations/supabase/client');
     
+    // Check if the boleta already exists
+    const { data: existingData } = await supabase
+      .from('registros')
+      .select('boleta')
+      .eq('boleta', data.boleta)
+      .single();
+      
+    if (existingData) {
+      return {
+        success: false,
+        message: 'El número de boleta ya está registrado'
+      };
+    }
+    
     // Insert data into Supabase
     const { error } = await supabase
       .from('registros')
@@ -62,8 +76,16 @@ const submitViaPhp = async (data: RegistroData): Promise<{ success: boolean; mes
       body: JSON.stringify(data),
     });
     
+    // First check if the response is OK
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    
+    // Check content type to ensure we're getting JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.error('Non-JSON response from PHP API:', await response.text());
+      throw new Error('El servidor devolvió un formato no válido');
     }
     
     const result = await response.json();
