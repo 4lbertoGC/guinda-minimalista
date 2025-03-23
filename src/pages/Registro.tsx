@@ -1,3 +1,4 @@
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -20,6 +20,20 @@ import { useState } from "react";
 import { submitRegistro, type RegistroData } from "@/services/api";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const especialidadesOptions = [
+  { value: "informatica", label: "Técnico en Informática" },
+  { value: "administracion", label: "Técnico en Administración" },
+  { value: "contaduria", label: "Técnico en Contaduría" },
+  { value: "mercadotecnia", label: "Técnico en Mercadotecnia Digital" },
+];
 
 const formSchema = z.object({
   nombre: z.string().min(3, {
@@ -40,9 +54,24 @@ const formSchema = z.object({
   promedio: z.string().regex(/^([0-9](\.\d)?|10(\.0)?)$/, {
     message: "El promedio debe ser un número entre 0 y 10.",
   }),
-  especialidad: z.enum(["informatica", "administracion", "contaduria", "mercadotecnia"], {
-    required_error: "Debes seleccionar una especialidad.",
+  especialidad1: z.string({
+    required_error: "Debes seleccionar tu primera opción de especialidad.",
   }),
+  especialidad2: z.string({
+    required_error: "Debes seleccionar tu segunda opción de especialidad.",
+  }),
+  especialidad3: z.string({
+    required_error: "Debes seleccionar tu tercera opción de especialidad.",
+  }),
+}).refine((data) => data.especialidad1 !== data.especialidad2, {
+  message: "La segunda opción debe ser diferente a la primera",
+  path: ["especialidad2"],
+}).refine((data) => data.especialidad1 !== data.especialidad3, {
+  message: "La tercera opción debe ser diferente a la primera",
+  path: ["especialidad3"],
+}).refine((data) => data.especialidad2 !== data.especialidad3, {
+  message: "La tercera opción debe ser diferente a la segunda",
+  path: ["especialidad3"],
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -61,7 +90,9 @@ const Registro = () => {
       boleta: "",
       email: "",
       promedio: "",
-      especialidad: undefined,
+      especialidad1: "",
+      especialidad2: "",
+      especialidad3: "",
     },
   });
 
@@ -70,6 +101,13 @@ const Registro = () => {
     setSubmitError(null);
     
     try {
+      // Format the specialties as a structured string or JSON
+      const especialidadFormatted = JSON.stringify({
+        primera: values.especialidad1,
+        segunda: values.especialidad2,
+        tercera: values.especialidad3
+      });
+      
       const registroData: RegistroData = {
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
@@ -77,7 +115,7 @@ const Registro = () => {
         boleta: values.boleta,
         email: values.email,
         promedio: values.promedio,
-        especialidad: values.especialidad
+        especialidad: especialidadFormatted
       };
       
       const result = await submitRegistro(registroData);
@@ -85,7 +123,7 @@ const Registro = () => {
       if (result.success) {
         toast({
           title: "Registro exitoso",
-          description: `Tu registro para ${getEspecialidadNombre(values.especialidad)} ha sido enviado correctamente.`,
+          description: `Tu registro ha sido enviado correctamente.`,
         });
         form.reset();
       } else {
@@ -111,13 +149,8 @@ const Registro = () => {
   }
 
   const getEspecialidadNombre = (id: string) => {
-    const especialidades = {
-      informatica: "Técnico en Informática",
-      administracion: "Técnico en Administración",
-      contaduria: "Técnico en Contaduría",
-      mercadotecnia: "Técnico en Mercadotecnia Digital",
-    };
-    return especialidades[id as keyof typeof especialidades];
+    const especialidad = especialidadesOptions.find(esp => esp.value === id);
+    return especialidad ? especialidad.label : id;
   };
 
   return (
@@ -146,7 +179,7 @@ const Registro = () => {
             <CardHeader>
               <CardTitle className="text-guinda">Formulario de Registro</CardTitle>
               <CardDescription>
-                Ingresa tus datos personales y selecciona tu especialidad.
+                Ingresa tus datos personales y selecciona tus especialidades en orden de preferencia.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -238,56 +271,85 @@ const Registro = () => {
                     )}
                   />
                   
-                  <FormField
-                    control={form.control}
-                    name="especialidad"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3">
-                        <FormLabel>Selecciona tu especialidad</FormLabel>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex flex-col space-y-2"
-                          >
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="informatica" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Técnico en Informática
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="administracion" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Técnico en Administración
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="contaduria" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Técnico en Contaduría
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="mercadotecnia" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Técnico en Mercadotecnia Digital
-                              </FormLabel>
-                            </FormItem>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="space-y-4">
+                    <h3 className="font-medium">Selección de Especialidades</h3>
+                    <p className="text-sm text-muted-foreground">Selecciona tres opciones diferentes en orden de preferencia</p>
+                    
+                    <FormField
+                      control={form.control}
+                      name="especialidad1"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Primera Opción (preferida)</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-muted">
+                                <SelectValue placeholder="Selecciona tu primera opción" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {especialidadesOptions.map((opcion) => (
+                                <SelectItem key={`primera-${opcion.value}`} value={opcion.value}>
+                                  {opcion.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="especialidad2"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Segunda Opción</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-muted">
+                                <SelectValue placeholder="Selecciona tu segunda opción" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {especialidadesOptions.map((opcion) => (
+                                <SelectItem key={`segunda-${opcion.value}`} value={opcion.value}>
+                                  {opcion.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="especialidad3"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tercera Opción</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-muted">
+                                <SelectValue placeholder="Selecciona tu tercera opción" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {especialidadesOptions.map((opcion) => (
+                                <SelectItem key={`tercera-${opcion.value}`} value={opcion.value}>
+                                  {opcion.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   
                   <Button 
                     type="submit" 

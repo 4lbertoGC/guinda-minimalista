@@ -129,17 +129,32 @@ export const getRegistros = async (): Promise<any[]> => {
     }
     
     // Transform data to maintain compatibility with the existing format
-    return data.map(registro => ({
-      id: registro.id,
-      boleta: registro.boleta,
-      nombre: registro.nombre,
-      apellido_paterno: registro.apellido_paterno,
-      apellido_materno: registro.apellido_materno,
-      nombre_completo: `${registro.nombre} ${registro.apellido_paterno} ${registro.apellido_materno}`,
-      especialidad: getEspecialidadNombre(registro.especialidad),
-      promedio: registro.promedio,
-      fecha: new Date(registro.created_at).toISOString().split('T')[0]
-    }));
+    return data.map(registro => {
+      // Try to parse the especialidad field if it's a JSON string
+      let especialidadData;
+      try {
+        if (typeof registro.especialidad === 'string') {
+          especialidadData = JSON.parse(registro.especialidad);
+        }
+      } catch (e) {
+        especialidadData = { primera: registro.especialidad };
+      }
+
+      const especialidadPrimera = especialidadData?.primera || registro.especialidad;
+      
+      return {
+        id: registro.id,
+        boleta: registro.boleta,
+        nombre: registro.nombre,
+        apellido_paterno: registro.apellido_paterno,
+        apellido_materno: registro.apellido_materno,
+        nombre_completo: `${registro.nombre} ${registro.apellido_paterno} ${registro.apellido_materno}`,
+        especialidad: getEspecialidadNombre(especialidadPrimera),
+        opciones: especialidadData,
+        promedio: registro.promedio,
+        fecha: new Date(registro.created_at).toISOString().split('T')[0]
+      };
+    });
   } catch (error) {
     console.error('Error en getRegistros:', error);
     // If there's an error with Supabase, try with the PHP API as fallback
