@@ -5,14 +5,14 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 7%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 7%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
 
     --primary: 353 100% 22%;
     --primary-foreground: 0 0% 98%;
@@ -20,8 +20,8 @@
     --secondary: 353 100% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
     --accent: 353 100% 22%;
     --accent-foreground: 0 0% 98%;
