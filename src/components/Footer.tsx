@@ -3,7 +3,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="border-t border-guinda-light/20 bg-black py-6">
+    <footer className="border-t border-guinda-light/20 bg-white py-6">
       <div className="container flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
         <p className="text-center text-sm text-muted-foreground">
           &copy; {currentYear} CECyT 12 José María Morelos y Pavón. 

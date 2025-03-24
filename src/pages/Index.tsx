@@ -41,13 +41,13 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-black">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center gap-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-guinda">
                 Opciones Disponibles
               </h2>
-              <p className="max-w-[700px] text-gray-400 md:text-xl">
+              <p className="max-w-[700px] text-gray-600 md:text-xl">
                 Conoce las carreras técnicas que puedes elegir para tu formación académica.
               </p>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
@@ -70,8 +70,8 @@ const Index = () => {
                       <line x1="12" x2="12" y1="17" y2="21" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Informática</h3>
-                  <p className="text-sm text-gray-400">
+                  <h3 className="text-xl font-bold text-gray-800">Informática</h3>
+                  <p className="text-sm text-gray-600">
                     Desarrollo de software, redes y sistemas computacionales.
                   </p>
                 </div>
@@ -93,8 +93,8 @@ const Index = () => {
                       <path d="M3 9V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Administración</h3>
-                  <p className="text-sm text-gray-400">
+                  <h3 className="text-xl font-bold text-gray-800">Administración</h3>
+                  <p className="text-sm text-gray-600">
                     Gestión de recursos humanos, materiales y financieros.
                   </p>
                 </div>
@@ -118,8 +118,8 @@ const Index = () => {
                       <path d="M9 14h6" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Contaduría</h3>
-                  <p className="text-sm text-gray-400">
+                  <h3 className="text-xl font-bold text-gray-800">Contaduría</h3>
+                  <p className="text-sm text-gray-600">
                     Control financiero, contabilidad y auditoría.
                   </p>
                 </div>
@@ -142,8 +142,8 @@ const Index = () => {
                       <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Mercadotecnia Digital</h3>
-                  <p className="text-sm text-gray-400">
+                  <h3 className="text-xl font-bold text-gray-800">Mercadotecnia Digital</h3>
+                  <p className="text-sm text-gray-600">
                     Estrategias de marketing en entornos digitales.
                   </p>
                 </div>
